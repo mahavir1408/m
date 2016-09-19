@@ -77,4 +77,4 @@ $config['standard_js'] = array();
 $config['standard_misc_head'] = '<!-- This is a comment in the head -->';
 
 //Set the default structure file for setting the content inside head tag
-$config['structureFile'] = 'frontend/structure';
+$config['structureFile'] = 'structure';
