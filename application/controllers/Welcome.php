@@ -32,10 +32,9 @@ class Welcome extends CI_Controller {
         $structure = array(				
             'title' => "Admin Dashboard",
             'keywords' =>"Admin Dashboard",
-            'description' => "Admin Dashboard",
-			'js' =>'',
-            //'js' => 'backend/all.js',
-            //'css' => array('backend/all.css','backend/people.css'),
+            'description' => "Admin Dashboard",			
+            'js' => 'js/script.js',
+            'css' => array('css/style.css'),
 			/*'misc_head' => '<!--[if gte IE 9]><link rel="stylesheet" href="assets/backend/css/ie9.css" type="text/css" /><![endif]-->
 			<!--[if gte IE 8]><link rel="stylesheet" href="assets/backend/css/ie8.css" type="text/css" /><![endif]-->',*/
 			//'meta' => array('<meta charset="utf-8" />','<meta name="author" content="" />','<meta name="viewport" content="width=device-width, initial-scale=1.0">')
@@ -50,12 +49,20 @@ class Welcome extends CI_Controller {
 							)
         );
 		
+		$data['left'] = "LEFT";
+		$data['content'] = "CONTENT";
+		$data['header'] = "HEADER";
+		$data['footer'] = "FOOTER";
         //'header','left','content','footer'
-         $views=array(             
-			 'content' => 'welcome_message'			 
-             );
+        //$views=array('content' => 'welcome_message');
+		$views=array(
+			'header' => 'layout/header',
+			'left' => 'layout/left',
+			'content' => 'pages/content',
+			'footer' => 'layout/footer',
+			);
         $this->hq_layout->set_structure($structure);
-        $this->hq_layout->set_layout($views,'0col');
+        $this->hq_layout->set_layout($views,'2col');
         $this->hq_layout->set_data($data);
         $this->hq_layout->render();
     }	
