@@ -35,7 +35,7 @@ class Auth extends CI_Controller {
             'keywords' =>"HTML5 - Hands on UI",
             'description' => "HTML5 - Hands on UI",
             'js' => '',
-            'css' => array('style.css'),
+            'css' => array('css/bootstrap.min.css','css/signin.css'),
 			//'meta' => array('<meta charset="utf-8" />','<meta name="author" content="" />','<meta name="viewport" content="width=device-width, initial-scale=1.0">')
 			/*
 			'meta' => array('author'=>'Mahavir Munot', 
