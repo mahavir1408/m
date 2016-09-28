@@ -31,7 +31,7 @@ switch($host)
     define('IMAGES_PATH',HTDOCS_PATH.'/assets/images');
     define('IMAGES_BASE_URL',SITEURL.'assets/images');
     //define('MAILPATH','C:\\wamp\\sendmail\\sendmail');            				
-    define('PROFILER',FALSE);
+    define('PROFILER',TRUE);
     break;
 }	 
 ini_set('include_path',INCLUDE_PATH);

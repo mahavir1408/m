@@ -1,4 +1,6 @@
-<footer>Copyright © W3Schools.com <P><?php echo $footer; ?></P></footer>
 </div>
+</div>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 </body>
 </html>

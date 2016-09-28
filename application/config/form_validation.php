@@ -4,7 +4,7 @@ $config = array(
         array(
             'field' => 'username',
             'label' => 'Username',
-            'rules' => 'required|valid_email|callback_userLogin'
+            'rules' => 'required|callback_userLogin'
         ),
         array(
             'field' => 'password',

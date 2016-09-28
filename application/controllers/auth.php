@@ -1,68 +1,73 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Auth extends CI_Controller {    
     
+    public $data = array();
+
     public function __construct()
     {       
         parent::__construct(); 		
         $this->load->model('user_model');
         $this->load->helper('url');
+        $this->output->enable_profiler(PROFILER);
         if($this->session->userdata('logged_in')){
-            header('Location:/admin/dashboard');             
+            header('Location:/dashboard');             
         }		
     }
     
     public function index()
     {
-		$data = array();
-        $this->load->library('form_validation');        
+        	
+        $this->load->library('form_validation');
+        $this->load->model('company_model');        
         $this->form_validation->set_error_delimiters('<div class="message error">', '</div>');
-        if ( $this->form_validation->run('userlogin')) {    
-			$userSessionData=$this->user_model->getUserDetails($this->input->post('email'),$this->input->post('password'));			
-            $newdata = array(                  
-                   'email'     => $userSessionData['userEmail'],
-				   'name'		 =>	$userSessionData['userName'],
-				   'id'		 => $userSessionData['userId'],
-				   'last_access' => $userSessionData['userLastAccess'],
-                   'logged_in' => true
-               );			
+        
+        if ( $this->form_validation->run('userlogin')) {
+            $companyId = $this->input->post('company');
+            $companyName = $this->input->post("company_name");
+			$userData=$this->user_model->getUserDetails($this->input->post('email'),$this->input->post('password'));			
+            $newdata = array(
+				   'name'       =>	$userData['userName'],
+				   'id'         => $userData['userId'],	
+                   'companyid'  => $companyId,
+                   'company_name'  => $companyName?$companyName:"Administrator",		
+                   'logged_in'  => true
+               );
             $this->session->set_userdata($newdata);
-            header('Location:/admin/dashboard');
+            header('Location:/dashboard');
         }
-        $userData = $this->session->all_userdata();
+        $this->data['companies'] = $this->company_model->getCompanylist('','',true);
+        //$userData = $this->session->all_userdata();
 		
         $structure = array(				
-            'title' => "HTML5 - Hands on UI",
-            'keywords' =>"HTML5 - Hands on UI",
-            'description' => "HTML5 - Hands on UI",
-            'js' => '',
-            'css' => array('css/bootstrap.min.css','css/signin.css'),
-			//'meta' => array('<meta charset="utf-8" />','<meta name="author" content="" />','<meta name="viewport" content="width=device-width, initial-scale=1.0">')
-			/*
-			'meta' => array('author'=>'Mahavir Munot', 
-							'viewport' => 'width=device-width, initial-scale=1.0',
-							'copyright' => 'All content and images copyright &copy; 2013, addedbits'
-							)
-			*/
-			'meta' => array('author'=>'Mahavir Munot', 
-							'viewport' => 'width=device-width, initial-scale=1.0'							
+            'title'       => "Billing System!",
+            'keywords'    =>"Billing System!",
+            'description' => "Billing System!",
+            'js'          => '',
+            'css'         => array('css/bootstrap.min.css','css/login/signin.css'),
+			'meta'        => array('author'    =>'Mahavir Munot', 
+							       'viewport'  => 'width=device-width, initial-scale=1.0',
+                                   'copyright' => 'Copyright @ 2016, addedbits'							
 							)
         );
 		$this->config->set_item('structureFile', 'structure');
         //'header','left','content','footer'
-         $views=array(             		 
-			 'content' => 'pages/login'			 
+         $views=array(
+			 'content' => 'pages/login/index'			 
              );
         $this->hq_layout->set_structure($structure);
         $this->hq_layout->set_layout($views,'0col');
-        $this->hq_layout->set_data($data);
+        $this->hq_layout->set_data($this->data);
         $this->hq_layout->render();
     }
 	
 	public function userLogin()
-    {		
-        $isValid=$this->user_model->login_check($this->input->post('email'),$this->input->post('password'));
+    {   
+        $isValid=$this->user_model->login_check($this->input->post('username'),$this->input->post('password'));
+
         if(!$isValid){
-            $this->form_validation->set_message('userLogin', 'Incorrect Email address or Password.');
+            $this->form_validation->set_message('userLogin', 'Incorrect Username or Password.');
             return false;				
         }else{
             return true;
@@ -72,6 +77,6 @@ class Auth extends CI_Controller {
     public function logout()
     {        
         $this->session->sess_destroy();
-        header('Location:/admin');
+        header('Location:/');
     }
 } 
