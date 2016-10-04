@@ -16,7 +16,7 @@ switch($host)
     define('IMAGES_PATH',HTDOCS_PATH.'\\assets\\images');
     define('IMAGES_BASE_URL',SITEURL.'assets/images');
     //define('MAILPATH','C:\\wamp\\sendmail\\sendmail');            				
-    define('PROFILER',TRUE);
+    define('PROFILER',FALSE);
     break;
   case 'local.m.com':
     define('ENV_NAME','local');
@@ -31,7 +31,7 @@ switch($host)
     define('IMAGES_PATH',HTDOCS_PATH.'/assets/images');
     define('IMAGES_BASE_URL',SITEURL.'assets/images');
     //define('MAILPATH','C:\\wamp\\sendmail\\sendmail');            				
-    define('PROFILER',TRUE);
+    define('PROFILER',FALSE);
     break;
 }	 
 ini_set('include_path',INCLUDE_PATH);

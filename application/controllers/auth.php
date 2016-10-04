@@ -26,14 +26,16 @@ class Auth extends CI_Controller {
         if ( $this->form_validation->run('userlogin')) {
             $companyId = $this->input->post('company');
             $companyName = $this->input->post("company_name");
-			$userData=$this->user_model->getUserDetails($this->input->post('email'),$this->input->post('password'));			
+			$userData=$this->user_model->getUserDetails($this->input->post('username'),$this->input->post('password'));
+            //echo "<pre>";print_r($userData);exit;	
             $newdata = array(
-				   'name'       =>	$userData['userName'],
-				   'id'         => $userData['userId'],	
-                   'companyid'  => $companyId,
-                   'company_name'  => $companyName?$companyName:"Administrator",		
-                   'logged_in'  => true
-               );
+                    'id'         => $userData['userId'],
+				    'name'       => $userData['userFullName'], 
+                    'is_admin'   => ($userData['isAdmin']=='1')?true:false,	
+                    'companyid'  => $companyId,
+                    'company_name'  => $companyName?$companyName:"",		
+                    'logged_in'  => true
+                );
             $this->session->set_userdata($newdata);
             header('Location:/dashboard');
         }
@@ -64,7 +66,7 @@ class Auth extends CI_Controller {
 	
 	public function userLogin()
     {   
-        $isValid=$this->user_model->login_check($this->input->post('username'),$this->input->post('password'));
+        $isValid=$this->user_model->login_check($this->input->post('username'),$this->input->post('password'),$this->input->post('company'));
 
         if(!$isValid){
             $this->form_validation->set_message('userLogin', 'Incorrect Username or Password.');

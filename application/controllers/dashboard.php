@@ -9,12 +9,10 @@ class Dashboard extends CI_Controller{
     {       
         parent::__construct(); 		
         $this->load->model('user_model');
-        /*
         if(!$this->session->userdata('logged_in')){
             header('Location:/');
             exit;
         } 
-        */       
         $this->config->set_item('menu', 'dashboard');
 		$this->data['userData'] = $this->session->all_userdata();
     }

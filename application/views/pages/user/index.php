@@ -1,5 +1,11 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<h1 class="page-header">Users</h1>
+	<h3 class="page-header">Users</h3>
+	<?php if($this->session->flashdata('success')){ ?>
+	<div class="alert alert-success alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <?php echo $this->session->flashdata('message'); ?>
+	</div>
+	<?php } ?>
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
 		<div class="panel-heading"><a class="btn btn-primary pull-right" href="/users/add" role="button">Add User</a><div class="clearfix"></div></div>
@@ -12,6 +18,7 @@
 			<th>Name</th>
 			<th>Username</th>
 			<th>Mobile</th>
+			<th>Companies</th>
 			<th>Settings</th>
 		</tr>
 		</thead>
@@ -22,8 +29,9 @@
 			<th scope="row"><?php echo $serial++; ?></th>
 			<td><?php echo $v['name'];?></td> 
 			<td><?php echo $v['username'];?></td> 
-			<td><?php echo $v['mobile'];?></td> 
-			<td><a href="/users/edit/<?php echo $v['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td><?php echo $v['mobile'];?></td>
+			<td><a title="View Companies" href="/users/companies/user/<?php echo $v['id'];?>">View</a></td>
+			<td><a title="Edit" href="/users/edit/<?php echo $v['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 		</tr>
 		<?php } ?>
 		</tbody>
