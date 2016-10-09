@@ -7,6 +7,12 @@
 		  <input type="text" class="form-control" id="company" name="company" value="<?php ($company['name'])?print($company['name']):"";?>" placeholder="Company Name">
 		</div>
 	</div>
+	<div class="form-group">
+		<label for="address" class="col-sm-3 control-label">Address</label>
+		<div class="col-sm-5">
+		  <textarea class="form-control" id="address" name="address" placeholder="Address"><?php ($company['address'])?print($company['address']):"";?></textarea>
+		</div>
+	</div>
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-10">
       <div class="checkbox">

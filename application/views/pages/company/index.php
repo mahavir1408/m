@@ -16,6 +16,7 @@
 		<tr>
 			<th>Sr. No.</th>
 			<th>Name</th>
+			<th>Address</th>
 			<th>Status</th>
 			<th>Action</th>
 		</tr>
@@ -25,7 +26,8 @@
 		<?php foreach($companies AS $k => $v){ ?>		
 		<tr>
 			<th scope="row"><?php echo $serial++; ?></th>
-			<td><?php echo $v['name'];?></td> 
+			<td><?php echo $v['name'];?></td>
+			<td><?php echo $v['address'];?></td>
 			<td><?php ($v['is_active'])?print("Active"):print("Inactive");?></td>
 			<td><a href="/company/edit/<?php echo $v['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 		</tr>

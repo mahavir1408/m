@@ -16,7 +16,7 @@ class product_model extends CI_Model {
     }
 	
 	public function getProductlist($limit=null, $offset=null,$company_id){
-		$this->db->select('p.id as id, p.name as name, FORMAT(COALESCE(SUM(pq.quantity),0),0) as quantity,FORMAT(p.price,0) as price');
+		$this->db->select('p.id as id, p.name as name, FORMAT(COALESCE(SUM(pq.quantity),0),0) as quantity,p.price as price');
 		$this->db->from("product as p");
 		$this->db->join("product_quantity as pq", "p.id=pq.pid", "left");		
 		$this->db->where('p.cid',$company_id);		

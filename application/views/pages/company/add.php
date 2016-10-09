@@ -8,15 +8,17 @@
 		  <input type="text" class="form-control" id="company" name="company" placeholder="Company Name">
 		</div>
 	</div>
-  <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input name="activate" type="checkbox"> Activate
-        </label>
-      </div>
-    </div>
-  </div>
+	<div class="form-group">
+		<label for="address" class="col-sm-3 control-label">Address</label>
+		<div class="col-sm-5">
+		  <textarea class="form-control" id="address" name="address" placeholder="Address"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-10">
+	  		<div class="checkbox"><label><input name="activate" type="checkbox"> Activate</label></div>
+		</div>
+	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-10">
 		  <button type="submit" class="btn btn-primary" name="save" value="save">Save</button>

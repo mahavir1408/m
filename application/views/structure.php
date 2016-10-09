@@ -22,9 +22,11 @@ if(isset($css_tags)) {
         echo $css_tag.PHP_EOL;
     }
 }
+/*
 if(isset($js_tag)) {
     echo $js_tag.PHP_EOL;
 }
+*/
 if(isset($misc_head)) {
     echo $misc_head.PHP_EOL;
 }

@@ -70,6 +70,7 @@ class Company extends CI_Controller{
         if ( $this->input->post('save')) {
             $formData = array(
                 'name' => $this->input->post('company'),
+                'address' => $this->input->post('address'),
                 'is_active' => $this->input->post('activate')?"1":"0",
                 'modified_at' => time(),
                 'created_at' => time()
@@ -113,6 +114,7 @@ class Company extends CI_Controller{
         if ( $this->input->post('save')) {
             $formData = array(
                 'name' => $this->input->post('company'),
+                'address' => $this->input->post('address'),
                 'is_active' => $this->input->post('activate')?"1":"0",
                 'modified_at' => time()
                 );
