@@ -55,4 +55,14 @@ class Invoice extends CI_Controller{
         $invoice['product_list'] = $this->product_model->getProductlist('','',$this->data['userData']['companyid']);
         echo json_encode($invoice);exit;
     }
+
+    public function saveInvoice(){
+        if ($this->input->post()) {
+            $items = $this->input->post('items');
+            $items = json_decode($items);
+            //echo "<pre>";print_r($items);exit;
+            echo json_encode(array("status"=>"success"));
+        }
+        exit;
+    }
 }

@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 //$route['invoice'] = "invoice/index";
 $route['invoice'] = "invoice/index";
+$route['invoice/save'] = "invoice/saveInvoice";
 $route['invoice/construct-invoice'] = "invoice/constructInvoice";
 
 $route['company'] = "company/index";
