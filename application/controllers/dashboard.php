@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller{
         //if(isset($_POST) && !empty($_POST)){echo "<pre>";print_r($this->input->post());exit;}
         if ($this->input->post('save')) {
             echo "<pre>";print_r($_POST);exit;
+            
         }
         $structure = array(             
             'title' => "Dashboard",
