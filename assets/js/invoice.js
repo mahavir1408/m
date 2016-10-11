@@ -98,13 +98,14 @@ $(document).ready(function(){
 
 	var generatePrint = function(){
 		var momentNow = moment();
-	    var bill_dt = momentNow.format('DD MMM YYYY') + ', ' + momentNow.format('dddd').substring(0,3).toUpperCase() + ', ' + momentNow.format('hh:mm:ss A');
+	    var bill_date = momentNow.format('DD MMM YYYY') + ', ' + momentNow.format('dddd').substring(0,3).toUpperCase();
+	    var bill_time = momentNow.format('hh:mm:ss A');
 		var border_bottom = "style='border-bottom: 0.1em dotted;'";
 		var border_top = "style='border-top: 0.1em dotted;'";
-		var printHtml = "<table border='0' width='100%'>";
+		var printHtml = "<table border='0' width='100%' "+border_bottom+">";
 		printHtml += "<tr><th colspan='5' align='center' "+border_bottom+">"+$("#company_name").val()+"</th></tr>";
-		printHtml += "<tr><td colspan='3' align='left'><strong>Bill No#</strong> "+$("#invoice_number").val()+" </td><td colspan='2' align='right'><strong>Date/Time:</strong> "+bill_dt+"</td></tr>";
-		printHtml += "<tr><td colspan='5' align='left' "+border_bottom+"><strong>Name: </strong> "+$("#customer_name").val()+"</td></tr>";
+		printHtml += "<tr><td colspan='3' align='left'><strong>Bill No#</strong> "+$("#invoice_number").val()+" </td><td colspan='2' align='right'><strong>Date:</strong> "+bill_date+"</td></tr>";
+		printHtml += "<tr><td colspan='3' align='left' "+border_bottom+"><strong>Name: </strong> "+$("#customer_name").val()+"<td colspan='2' align='right' "+border_bottom+"><strong>Time:</strong> "+bill_time+"</td></tr>";
 		printHtml += "<tr><th "+border_bottom+">Sr. No.</th><th "+border_bottom+">Item</th><th "+border_bottom+">Price</th><th "+border_bottom+">Quantity</th><th "+border_bottom+">Amount</th></tr>";
 		
 		
@@ -128,7 +129,7 @@ $(document).ready(function(){
 		});		
 		var total_quantity = $("#total_quantity").val();
 		var total_amount = $("#total_amount").val();
-		printHtml += "<tr><th colspan='3' "+border_top+">Total:</th><th "+border_top+">"+total_quantity+"</th><th "+border_top+">"+total_amount+"</th></tr>";
+		printHtml += "<tr><th colspan='3' "+border_top+" align='right'>Total:</th><th "+border_top+">"+total_quantity+"</th><th "+border_top+">"+"Rs. "+total_amount+"/-"+"</th></tr>";
 		printHtml += "</table>";
 		printOut(printHtml);
 		$("#invoice_form").submit(function(e){return false;});	
@@ -136,6 +137,7 @@ $(document).ready(function(){
 
 	var saveAndPrint = function(){
 		$("#invoice_form").submit(function(e){return false;});
+		$("#save").hide();
 		var jsonObj = {};
 		$('.selectpicker').each(function(i){
 			var rowNumber = $(this).data('row');
@@ -146,15 +148,37 @@ $(document).ready(function(){
 			var item_amount = $("#amount"+rowNumber+"").val();
 			jsonObj[i] = {item_id:item_id,item_name:item_name,quantity:item_quantity,price:item_price,amount:item_amount};
 		});
+
+		var invoice_number = $("#invoice_number").val();
+		var total_amount = $("#total_amount").val();
+		var customer_info = {};
+		customer_info.customer_name = $("#customer_name").val()||"";
+		customer_info.customer_mobile = $("#customer_mobile").val()||"";
+
 		$.ajax({
-			data: {items:JSON.stringify(jsonObj)},
+			data: {invoice_number:invoice_number,amount:total_amount,customer_info:customer_info,items:JSON.stringify(jsonObj)},
 			url: "/invoice/save",
 			method:'post',
 			success:function(data){
+				$(".alert").remove();
+				var response = JSON.parse(data);
+				var msg = "<div class='alert alert-success alert-dismissible' role='alert'>";
+		  			msg += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+		  			msg += ""+response.message+"!!.";
+					msg += "</div>";
+				$(msg).insertBefore("#invoice_form");
 				generatePrint();
-				constructInvoicePage();
-				console.log("data:");
-				console.log(data);
+				//constructInvoicePage();
+			},
+			error:function(e){
+				$(".alert").remove();
+				var response = JSON.parse(e.responseText);
+				console.log(response);
+				var msg = "<div class='alert alert-danger alert-dismissible' role='alert'>";
+		  			msg += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+		  			msg += "<strong>"+response.message+"</strong>";
+					msg += "</div>";
+				$(msg).insertBefore("#invoice_form");
 			}
 		});
 	};
@@ -230,7 +254,8 @@ $(document).ready(function(){
 				$("#invoice").append(input);
 			}
 		});
-		$("#invoice_block").after("<div><button class='btn btn-primary' name='save' id='save' value='save'>Save & Print</button></div>");
+		$("#invoice_block").after("<div><button type='button' class='btn btn-primary' name='save' id='save' value='save'>Save & Print</button><button type='button' class='btn btn-primary' style='margin-left:5px;' name='new' id='new' value='new'>New Invoice</button></div>");
+		$("#new").on("click",function(){constructInvoicePage();});
 		$("#save").on("click",function(){saveAndPrint();});
 		$("#add").on("click",function(){addRow();return false;});
 	};

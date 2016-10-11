@@ -15,7 +15,7 @@ $config['pagination']['prev_link'] = '<span class="glyphicon glyphicon-triangle-
 //$config['pagination']['prev_tag_close'] = '</a>';
 $config['pagination']['cur_tag_open'] = '<a class="selected" href="javascript:;">';
 $config['pagination']['cur_tag_close'] = '</a>';
-$config['pagination']['per_page'] = 5;
+$config['pagination']['per_page'] = 20;
 $config['pagination']['display_pages'] = TRUE; 
 $config['pagination']['num_links'] = 2;
 /* End of file pagination.php */

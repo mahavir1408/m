@@ -35,4 +35,8 @@ switch($host)
     break;
 }	 
 ini_set('include_path',INCLUDE_PATH);
+if( ! ini_get('date.timezone') )
+{
+   date_default_timezone_set('Asia/Kolkata');
+} 
 include("db_settings.php");

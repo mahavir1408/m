@@ -7,7 +7,7 @@
 		<li class="<?php if($menu == 'company') { ?>active<?php } ?>"><a href="/company">Company</a></li>
 		<li class="<?php if($menu == 'user') { ?>active<?php } ?>"><a href="/users">Users</a></li>
 		<?php } ?>
-		<li><a href="/orders">Order</a></li>
+		<li class="<?php if($menu == 'orders') { ?>active<?php } ?>"><a href="/orders">Orders</a></li>
 		<li><a href="/logout">Logout</a></li>
 	</ul>
 </div>

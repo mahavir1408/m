@@ -50,9 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //$route['invoice'] = "invoice/index";
-$route['invoice'] = "invoice/index";
+$route['orders'] = "invoice/index";
+$route['orders/(:num)'] = "invoice/index";
+
+//$route['invoice'] = "invoice/index";
 $route['invoice/save'] = "invoice/saveInvoice";
 $route['invoice/construct-invoice'] = "invoice/constructInvoice";
+$route['invoice/details/(:num)'] = "invoice/invoiceDetails";
 
 $route['company'] = "company/index";
 $route['company/(:num)'] = "company/index";
