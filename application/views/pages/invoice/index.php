@@ -1,5 +1,46 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<h3 class="page-header">Orders</h3>
+
+
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  		<div class="panel panel-default">
+    		<div class="panel-heading" role="tab" id="headingOne">
+      			<h4 class="panel-title">
+        			<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        				Filter
+        			</a>
+      			</h4>
+    		</div>
+			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      			<div class="panel-body">
+        			<form class="form-horizontal" method="post">
+						<div class="form-group">
+							<label for="name" class="col-sm-1 control-label">From:</label>
+							<div class="col-sm-3">
+						  		<input type="text"  class="form-control" size='10' id="datepickerFrom" value="<?php !empty($from)?print(date("l, j F, Y",strtotime($from))):"";?>" name="from" placeholder="From Date" readonly />
+						  		<input type="hidden" name="fromDate" id="alternateFrom" size="30" value="<?php !empty($from)?print(date("Y-m-d",strtotime($from))):"";?>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="name" class="col-sm-1 control-label">To:</label>
+							<div class="col-sm-3">
+						  		<input type="text"  class="form-control" size='10' id="datepickerTo" value='<?php !empty($to)?print(date("l, j F, Y",strtotime($to))):"";?>' name="to" placeholder="To Date" readonly />
+						  		<input type="hidden" name="toDate" id="alternateTo" size="30" value='<?php !empty($to)?print(date("Y-m-d",strtotime($to))):"";?>' />
+							</div>
+						</div>
+						<div class="form-group">
+						    <div class="col-sm-offset-1 col-sm-10">
+						      <a href="#" onclick="this.href='/orders/filter/'+document.getElementById('alternateFrom').value+'/'+document.getElementById('alternateTo').value+'/1'" class="btn btn-primary">Search</a>
+						      &nbsp;
+						      <a href="/orders" class="btn btn-primary">Reset</a>
+						    </div>
+						</div>
+					</form>
+      			</div>
+    		</div>
+		</div>
+	</div>
+
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
 		<div class="panel-heading">

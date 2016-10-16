@@ -17,9 +17,13 @@ class invoice_model extends CI_Model {
         }   
     }
 
-    public function getTotalAmount($company_id=''){
+    public function getTotalAmount($company_id='',$from='',$to=''){
         if(!empty($company_id)){
             $this->db->where('cid',$company_id);
+        }
+        if(!empty($from)&&!empty($to)){
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m-%d') >=",$from);
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m-%d') <=",$to);
         }
         $result=$this->db->select('sum(amount) AS total_amount')->get('invoice')->result_array();
         if(isset($result) && !empty($result)){
@@ -29,7 +33,7 @@ class invoice_model extends CI_Model {
         } 
     }
 
-    public function getInvoicelist($limit=null, $offset=null,$company_id=''){
+    public function getInvoicelist($limit=null, $offset=null,$company_id='',$from='',$to=''){
         $select = 'i.id as id, i.invoice_no as invoice_no, i.amount as amount,i.customer_info as customer_info,i.created_at as created_at';
         $select .= ',c.name as company_name,u.name as user_name';
         $this->db->select($select);
@@ -38,6 +42,10 @@ class invoice_model extends CI_Model {
         $this->db->join("users as u", "u.id=i.uid", "left");     
         if(!empty($company_id)){
             $this->db->where('i.cid',$company_id);
+        }
+        if(!empty($from)&&!empty($to)){
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(i.created_at),'%Y-%m-%d') >=",$from);
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(i.created_at),'%Y-%m-%d') <=",$to);
         }
         if(!empty($limit) || !empty($offset)){
             $result = $this->db->limit($offset,$limit)->order_by("i.id", "desc")->get()->result_array();
@@ -84,9 +92,13 @@ class invoice_model extends CI_Model {
         }
     }
 
-    public function getInvoiceCount($company_id=''){
+    public function getInvoiceCount($company_id='',$from='',$to=''){
         if(!empty($company_id)){
             $this->db->where('cid',$company_id);
+        }
+        if(!empty($from)&&!empty($to)){
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m-%d') >=",$from);
+            $this->db->where("DATE_FORMAT(FROM_UNIXTIME(created_at),'%Y-%m-%d') <=",$to);
         }
         $total=$this->db->select('id')->get('invoice')->num_rows();
         if(isset($total) && !empty($total)){

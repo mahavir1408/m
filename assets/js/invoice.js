@@ -137,7 +137,7 @@ $(document).ready(function(){
 
 	var saveAndPrint = function(){
 		$("#invoice_form").submit(function(e){return false;});
-		$("#save").hide();
+		
 		var jsonObj = {};
 		$('.selectpicker').each(function(i){
 			var rowNumber = $(this).data('row');
@@ -161,10 +161,11 @@ $(document).ready(function(){
 			method:'post',
 			success:function(data){
 				$(".alert").remove();
+				$("#save").hide();
 				var response = JSON.parse(data);
 				var msg = "<div class='alert alert-success alert-dismissible' role='alert'>";
 		  			msg += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
-		  			msg += ""+response.message+"!!.";
+		  			msg += response.message+"!!";
 					msg += "</div>";
 				$(msg).insertBefore("#invoice_form");
 				generatePrint();
@@ -176,7 +177,7 @@ $(document).ready(function(){
 				console.log(response);
 				var msg = "<div class='alert alert-danger alert-dismissible' role='alert'>";
 		  			msg += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
-		  			msg += "<strong>"+response.message+"</strong>";
+		  			msg += response.message;
 					msg += "</div>";
 				$(msg).insertBefore("#invoice_form");
 			}
