@@ -98,17 +98,15 @@ $(document).ready(function(){
 
 	var generatePrint = function(){
 		var momentNow = moment();
-	    var bill_date = momentNow.format('DD MMM YYYY') + ', ' + momentNow.format('dddd').substring(0,3).toUpperCase();
-	    var bill_time = momentNow.format('hh:mm:ss A');
+    var bill_date = momentNow.format('DD MMM YYYY') + ', ' + momentNow.format('dddd').substring(0,3).toUpperCase();
+    var bill_time = momentNow.format('hh:mm:ss A');
 		var border_bottom = "style='border-bottom: 0.1em dotted;'";
 		var border_top = "style='border-top: 0.1em dotted;'";
 		var printHtml = "<table border='0' width='100%' "+border_bottom+">";
 		printHtml += "<tr><th colspan='5' align='center' "+border_bottom+">"+$("#company_name").val()+"</th></tr>";
 		printHtml += "<tr><td colspan='3' align='left'><strong>Bill No#</strong> "+$("#invoice_number").val()+" </td><td colspan='2' align='right'><strong>Date:</strong> "+bill_date+"</td></tr>";
 		printHtml += "<tr><td colspan='3' align='left' "+border_bottom+"><strong>Name: </strong> "+$("#customer_name").val()+"<td colspan='2' align='right' "+border_bottom+"><strong>Time:</strong> "+bill_time+"</td></tr>";
-		printHtml += "<tr><th "+border_bottom+">Sr. No.</th><th "+border_bottom+">Item</th><th "+border_bottom+">Price</th><th "+border_bottom+">Quantity</th><th "+border_bottom+">Amount</th></tr>";
-		
-		
+		printHtml += "<tr><th "+border_bottom+" align='left'>Sr. No.</th><th "+border_bottom+" align='left'>Item</th><th "+border_bottom+" align='left'>Price</th><th "+border_bottom+" align='left'>Quantity</th><th "+border_bottom+" align='left'>Amount</th></tr>";
 		$('.selectpicker').each(function(i){
 			var rowNumber = $(this).data('row');
 			var item_name = $(this).find('option:selected').text();
@@ -124,13 +122,14 @@ $(document).ready(function(){
 			
 			i++;
 
-			printHtmlRow = "<tr><td align='center'>"+i+"</td><td align='center'>"+item_name+"</td><td align='center'>"+item_price+"</td><td align='center'>"+item_quantity+"</td><td align='center'>"+item_amount+"</td></tr>";
+			printHtmlRow = "<tr><td align='left'>"+i+"</td><td align='left'>"+item_name+"</td><td align='left'>"+item_price+"</td><td align='left'>"+item_quantity+"</td><td align='left'>"+item_amount+"</td></tr>";
 			printHtml += printHtmlRow;
 		});		
 		var total_quantity = $("#total_quantity").val();
 		var total_amount = $("#total_amount").val();
-		printHtml += "<tr><th colspan='3' "+border_top+" align='right'>Total:</th><th "+border_top+">"+total_quantity+"</th><th "+border_top+">"+"Rs. "+total_amount+"/-"+"</th></tr>";
+		printHtml += "<tr><th colspan='3' "+border_top+" align='left'>Total:</th><th "+border_top+" align='left'>"+total_quantity+"</th><th "+border_top+" align='left'>"+"Rs. "+total_amount+"/-"+"</th></tr>";
 		printHtml += "</table>";
+		//$("#invoice_form").html(printHtml);
 		printOut(printHtml);
 		$("#invoice_form").submit(function(e){return false;});	
 	};

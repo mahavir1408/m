@@ -107,3 +107,7 @@ body {
 .selected {text-decoration: none;font-weight: bold;padding: 4px;color: #000000;}
 .pagination a {text-decoration: none;}
 .invoice-hr{margin:4px 0 5px 0px;}
+
+tr.border_bottom td {
+  border-bottom:1pt 0.1em black;
+}
